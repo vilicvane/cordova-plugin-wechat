@@ -3,7 +3,7 @@
 Inspired by https://github.com/xu-li/cordova-plugin-wechat  
 其实本来 fork 了, 但因为一方面没有支持 Windows Phone, 另一方面 Android 的支持也很有限, 所以重写了.
 
-支持 iOS, WP, Android. 分享内容只支持文本, 图片, 和链接.
+支持 iOS, WP, Android, 都有回调 (WP 有限制, 具体看下面的例子). 分享内容只支持文本, 图片, 和链接.
 
 ## 安装
 
