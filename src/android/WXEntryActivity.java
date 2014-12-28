@@ -29,22 +29,22 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
         WeChat.api.handleIntent(getIntent(), this);
     }
 
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
         WeChat.api.handleIntent(intent, this);
-	}
+    }
 
-	@Override
-	public void onReq(BaseReq req) {
+    @Override
+    public void onReq(BaseReq req) {
         // not implemented
         finish();
-	}
+    }
 
-	@Override
-	public void onResp(BaseResp resp) {
-		switch (resp.errCode) {
+    @Override
+    public void onResp(BaseResp resp) {
+        switch (resp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
                 WeChat.currentCallbackContext.success();
                 break;
@@ -54,11 +54,20 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
                 WeChat.currentCallbackContext.error(WeChat.ERR_AUTH_DENIED);
                 break;
+            case BaseResp.ErrCode.ERR_SENT_FAILED:
+                WeChat.currentCallbackContext.error(WeChat.ERR_SENT_FAILED);
+                break;
+            case BaseResp.ErrCode.ERR_UNSUPPORT:
+                WeChat.currentCallbackContext.error(WeChat.ERR_UNSUPPORT);
+                break;
+            case BaseResp.ErrCode.ERR_COMM:
+                WeChat.currentCallbackContext.error(WeChat.ERR_COMM);
+                break;
             default:
                 WeChat.currentCallbackContext.error(WeChat.ERR_UNKNOWN);
                 break;
         }
         finish();
-	}
+    }
 
 }

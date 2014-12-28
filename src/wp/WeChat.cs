@@ -133,7 +133,7 @@ namespace Cordova.Extension.Commands {
         public static WeChat wechat = null;
         public static SendMessageToWX.Resp response = null;
 
-        public const string WECHAT_APPID_KEY = "WECHAT_APPID";
+        public const string WECHAT_APPID_KEY = "wechatappid";
         public const string ERR_INVALID_OPTIONS = "ERR_INVALID_OPTIONS";
         public const string ERR_UNSUPPORTED_MEDIA_TYPE = "ERR_UNSUPPORTED_MEDIA_TYPE";
         public const string NO_RESULT = "NO_RESULT";

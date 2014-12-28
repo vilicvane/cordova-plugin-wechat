@@ -32,25 +32,18 @@ import com.tencent.mm.sdk.openapi.WXWebpageObject;
 
 public class WeChat extends CordovaPlugin {
 
-    public static final String WECHAT_APPID_KEY = "WECHAT_APPID";
+    public static final String WECHAT_APPID_KEY = "wechatappid";
 
     public static final String ERR_WECHAT_NOT_INSTALLED = "ERR_WECHAT_NOT_INSTALLED";
     public static final String ERR_INVALID_OPTIONS = "ERR_INVALID_OPTIONS";
     public static final String ERR_UNSUPPORTED_MEDIA_TYPE = "ERR_UNSUPPORTED_MEDIA_TYPE";
     public static final String ERR_USER_CANCEL = "ERR_USER_CANCEL";
     public static final String ERR_AUTH_DENIED = "ERR_AUTH_DENIED";
+    public static final String ERR_SENT_FAILED = "ERR_SENT_FAILED";
+    public static final String ERR_UNSUPPORT = "ERR_UNSUPPORT";
+    public static final String ERR_COMM = "ERR_COMM";
     public static final String ERR_UNKNOWN = "ERR_UNKNOWN";
     public static final String NO_RESULT = "NO_RESULT";
-
-    public static final String OPTIONS_KEY_SCENE = "scene";
-    public static final String OPTIONS_KEY_TEXT = "text";
-    public static final String OPTIONS_KEY_MESSAGE = "message";
-    public static final String OPTIONS_KEY_MESSAGE_TYPE = "type";
-    public static final String OPTIONS_KEY_MESSAGE_TITLE = "title";
-    public static final String OPTIONS_KEY_MESSAGE_DESCRIPTION = "description";
-    public static final String OPTIONS_KEY_MESSAGE_THUMB_DATA = "thumbData";
-    public static final String OPTIONS_KEY_MESSAGE_URL = "url";
-    public static final String OPTIONS_KEY_MESSAGE_DATA = "data";
 
     public static final int SHARE_TYPE_APP = 1;
     public static final int SHARE_TYPE_EMOTION = 2;
@@ -59,7 +52,7 @@ public class WeChat extends CordovaPlugin {
     public static final int SHARE_TYPE_MUSIC = 5;
     public static final int SHARE_TYPE_VIDEO = 6;
     public static final int SHARE_TYPE_WEBPAGE = 7;
-    
+
     public static final int SCENE_CHOSEN_BY_USER = 0;
     public static final int SCENE_SESSION = 1;
     public static final int SCENE_TIMELINE = 2;
@@ -73,12 +66,12 @@ public class WeChat extends CordovaPlugin {
         api = WXAPIFactory.createWXAPI(webView.getContext(), appId, true);
         api.registerApp(appId);
     }
-    
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext)
             throws JSONException {
         if (action.equals("share")) {
-                share(args, callbackContext);
+            share(args, callbackContext);
         } else if (action.equals("getLastResult")) {
             callbackContext.error(WeChat.NO_RESULT);
         } else {
@@ -94,19 +87,19 @@ public class WeChat extends CordovaPlugin {
             callbackContext.error(ERR_WECHAT_NOT_INSTALLED);
             return;
         }
-        
+
         JSONObject params = args.getJSONObject(0);
-        
+
         if (params == null) {
             callbackContext.error(ERR_INVALID_OPTIONS);
             return;
         }
-        
+
         SendMessageToWX.Req request = new SendMessageToWX.Req();
 
         request.transaction = String.valueOf(System.currentTimeMillis());
 
-        int paramScene = params.getInt(OPTIONS_KEY_SCENE);
+        int paramScene = params.getInt("scene");
 
         switch (paramScene) {
             case SCENE_SESSION:
@@ -121,34 +114,34 @@ public class WeChat extends CordovaPlugin {
         }
 
         WXMediaMessage message = null;
-        
+
         String text = null;
         JSONObject messageOptions = null;
 
-        if (!params.isNull(OPTIONS_KEY_TEXT)) {
-            text = params.getString(OPTIONS_KEY_TEXT);
+        if (!params.isNull("text")) {
+            text = params.getString("text");
         }
 
-        if (!params.isNull(OPTIONS_KEY_MESSAGE)) {
-            messageOptions = params.getJSONObject(OPTIONS_KEY_MESSAGE);
+        if (!params.isNull("message")) {
+            messageOptions = params.getJSONObject("message");
         }
-        
+
         if (messageOptions != null) {
             String url = null;
             String data = null;
 
-            if (!messageOptions.isNull(OPTIONS_KEY_MESSAGE_URL)) {
-                url = messageOptions.getString(OPTIONS_KEY_MESSAGE_URL);
+            if (!messageOptions.isNull("url")) {
+                url = messageOptions.getString("url");
             }
 
-            if (!messageOptions.isNull(OPTIONS_KEY_MESSAGE_DATA)) {
-                data = messageOptions.getString(OPTIONS_KEY_MESSAGE_DATA);
+            if (!messageOptions.isNull("data")) {
+                data = messageOptions.getString("data");
             }
 
             int type = SHARE_TYPE_WEBPAGE;
 
-            if (!messageOptions.isNull(OPTIONS_KEY_MESSAGE_TYPE)) {
-                type = messageOptions.getInt(OPTIONS_KEY_MESSAGE_TYPE);
+            if (!messageOptions.isNull("type")) {
+                type = messageOptions.getInt("type");
             }
 
             switch (type) {
@@ -181,37 +174,37 @@ public class WeChat extends CordovaPlugin {
                     message = new WXMediaMessage(webpageObject);
                     break;
             }
-        
+
             if (message == null) {
                 callbackContext.error(ERR_UNSUPPORTED_MEDIA_TYPE);
                 return;
             }
 
-            if (!messageOptions.isNull(OPTIONS_KEY_MESSAGE_TITLE)) {
-                message.title = messageOptions.getString(OPTIONS_KEY_MESSAGE_TITLE);
+            if (!messageOptions.isNull("title")) {
+                message.title = messageOptions.getString("title");
             }
 
-            if (!messageOptions.isNull(OPTIONS_KEY_MESSAGE_DESCRIPTION)) {
-                message.description = messageOptions.getString(OPTIONS_KEY_MESSAGE_DESCRIPTION);
+            if (!messageOptions.isNull("description")) {
+                message.description = messageOptions.getString("description");
             }
 
-            if (!messageOptions.isNull(OPTIONS_KEY_MESSAGE_THUMB_DATA)) {
-                String thumbData = messageOptions.getString(OPTIONS_KEY_MESSAGE_THUMB_DATA);
+            if (!messageOptions.isNull("thumbData")) {
+                String thumbData = messageOptions.getString("thumbData");
                 message.thumbData = Base64.decode(thumbData, Base64.DEFAULT);
             }
         } else if (text != null) {
             WXTextObject textObject = new WXTextObject();
             textObject.text = text;
-            
+
             message = new WXMediaMessage(textObject);
             message.description = text;
         } else {
             callbackContext.error(ERR_INVALID_OPTIONS);
             return;
         }
-        
+
         request.message = message;
-        
+
         try {
             boolean success = api.sendReq(request);
             if (!success) {
@@ -222,8 +215,7 @@ public class WeChat extends CordovaPlugin {
             callbackContext.error(e.getMessage());
             return;
         }
-        
-        // save the current callback context
+
         currentCallbackContext = callbackContext;
-    }    
+    }
 }

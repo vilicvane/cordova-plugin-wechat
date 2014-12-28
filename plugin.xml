@@ -4,7 +4,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="com.wordsbaking.cordova.wechat"
-    version="0.1.0">
+    version="0.2.0">
     <name>WeChat</name>
     <description>Cordova WeChat Plugin</description>
     <license>MIT</license>
@@ -16,19 +16,49 @@
         <clobbers target="WeChat" />
     </js-module>
 
-    <!--<platform name="ios">
+    <!-- ios -->
+    <platform name="ios">
+        <preference name="APP_ID" />
+
         <config-file target="config.xml" parent="/*">
             <feature name="WeChat">
                 <param name="ios-package" value="CDVWeChat"/>
             </feature>
+            <preference name="wechatappid" value="$APP_ID" />
         </config-file>
+        
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+            <array>
+                <dict>
+                    <key>CFBundleURLName</key>
+                    <string>weixin</string>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>$APP_ID</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+        
+        <framework src="libc++.dylib" />
+        <framework src="libz.dylib" />
+        <framework src="libsqlite3.0.dylib" />
+        <framework src="Security.framework" />
+        <framework src="SystemConfiguration.framework" />
 
+        <framework src="src/ios/libWeChatSDK.a" custom="true" />
+        
+        <header-file src="src/ios/WXApi.h" />
+        <header-file src="src/ios/WXApiObject.h" />
+        
         <header-file src="src/ios/CDVWeChat.h" />
         <source-file src="src/ios/CDVWeChat.m" />
-    </platform>-->
+    </platform>
 
     <!-- windows phone 8 -->
     <platform name="wp8">
+        <preference name="APP_ID" />
+
         <config-file target="config.xml" parent="/*">
             <feature name="WeChat">
                 <param name="wp-package" value="WeChat"/>
@@ -39,8 +69,7 @@
             <Extensions>
                 <FileTypeAssociation Name="Cordova WeChat Plugin" TaskID="_default" NavUriFragment="fileToken=%s">
                     <SupportedFileTypes>
-                        <!-- 更换为你的 App ID, 注意保留前面的点 (.wechatapp 不用改) -->
-                        <FileType>.wxb45d11023bfbe8a5</FileType>
+                        <FileType>.$APP_ID</FileType>
                         <FileType>.wechatapp</FileType>
                     </SupportedFileTypes>
                 </FileTypeAssociation>
@@ -57,6 +86,8 @@
 
     <!-- android -->
     <platform name="android">
+        <preference name="APP_ID" />
+
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="WeChat" >
                 <param name="android-package" value="com.wordsbaking.cordova.wechat.WeChat"/>
@@ -71,8 +102,7 @@
                 <intent-filter>
                     <action android:name="android.intent.action.VIEW"/>
                     <category android:name="android.intent.category.DEFAULT"/>
-                    <!-- 更换为你的 App ID -->
-                    <data android:scheme="wxb45d11023bfbe8a5"/>
+                    <data android:scheme="$APP_ID"/>
                 </intent-filter>
             </activity>
         </config-file>
@@ -83,7 +113,7 @@
         <!--
             打开 WXEntryActivity.java, 并将文件顶部的 package 名称修改为 [你的应用包名].wxapi
             比如我的应用包名是 com.wordsbaking.app, 则修改为 com.wordsbaking.app.wxapi
-            另外将下面的 target-dir 改为对应目录 (保留 src/)
+            另外将下面的 target-dir 改为与包名对应目录 (保留 src/)
         -->
         <source-file src="src/android/WXEntryActivity.java" target-dir="src/com/wordsbaking/app/wxapi" />
     </platform>

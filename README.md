@@ -3,35 +3,48 @@
 Inspired by https://github.com/xu-li/cordova-plugin-wechat  
 其实本来 fork 了, 但因为一方面没有支持 Windows Phone, 另一方面 Android 的支持也很有限, 所以重写了.
 
-跟着就写 iOS.
-
-目前只支持文本, 图片, 和链接分享.
+支持 iOS, WP, Android. 分享内容只支持文本, 图片, 和链接.
 
 ## 安装
 
 ```sh
-plugman --platform [wp8|android] --project [project-directory] --plugin com.wordsbaking.cordova.wechat
+cordova plugin add com.wordsbaking.cordova.wechat --variable APP_ID=[你的APPID]
 ```
 
 ## 配置
 
 ### config.xml
 
-在 widget 元素下, 添加一个 preference.
+可能需要添加一些权限, 比如安卓貌似是要添加这些:
 
 ```xml
-<preference name="WECHAT_APPID" value="你的APPID" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 ```
 
-另外因为牵涉到回调, 配置没法完全在 config.xml 中完成, 还需要修改一些插件文件.
+反正我没添加, Debug Release 都没问题, 不知道提交商店会不会有情况.
 
-### plugin.xml
+### plugin.xml 和 src/android/WXEntryActivity.java
+
+另外因为牵涉到回调, 还需要修改一些插件文件.
 
 打开插件的 plugin.xml 文件 (比如可能在目录 plugins/com.wordsbaking.cordova.wechat 下),
-在各个平台对应的配置内, 按照注释将相关 App ID 替换为自己的.
-
-Android 平台还需要按照注释修改插件目录下, src/android 目录中的 WXEntryActivity.java 文件的包名,
+Android 平台需要按照注释修改插件目录下 src/android 目录中的 WXEntryActivity.java 文件的包名,
 以及该文件的 source-file 配置对应的 target-dir.
+
+### iOS (XCode)
+
+因为添加了一个静态库文件, 但是我没找到 Cordova 上可以自动化相关配置的用法, 所以这里需要手动处理,
+否则编译不通过. 方法也很简单, 用 XCode 打开 platforms/ios 目录下的项目, 打开 Build Phases 中的
+Link Binary With Libraries 下找到 libWeChatSDK.a, 随意拖动下顺序, XCode 就会自动补上原本缺少的
+Library Search Paths.
+
+另外 libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, 要小一些, 应该是最后生产环境用的.
+我放进去的是全的那个, 要大一倍 (应该是包含了 x86 架构方便模拟器 debug), 可以自己替换掉.
 
 ## 使用
 
