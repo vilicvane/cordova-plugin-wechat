@@ -5,11 +5,16 @@ Inspired by https://github.com/xu-li/cordova-plugin-wechat
 
 支持 iOS, WP, Android, 都有回调 (WP 有限制, 具体看下面的例子). 分享内容只支持文本, 图片, 和链接.
 
+另外需要注意的是 Android 不仅需要审核通过, 还需要那什么签名吻合, 所以得要 release 的 keystore 来签名.
+
 ## 安装
 
 ```sh
 cordova plugin add com.wordsbaking.cordova.wechat --variable APP_ID=[你的APPID]
 ```
+
+如果是 Visual Studio 当前的 Cordova Tools, 貌似暂时没办法设置变量, 可以自行在 plugin.xml 中替换
+$APP_ID 为自己的 App ID, 并移除各平台下对应的 `<preference name="APP_ID" />`.
 
 ## 配置
 
