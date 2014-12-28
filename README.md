@@ -38,7 +38,7 @@ Android 平台还需要按照注释修改插件目录下, src/android 目录中�
 ```javascript
 // 在 device ready 后.
 WeChat
-    .share('文本', WeChat.timeline, function () {
+    .share('文本', WeChat.Scene.session, function () {
         console.log('分享成功~');
     }, function (reason) {
         console.log(reason);
@@ -50,7 +50,7 @@ WeChat
         title: '链接',
         description: '链接描述',
         url: 'https://wordsbaking.com/'
-    }, WeChat.timeline, function () {
+    }, WeChat.Scene.timeline, function () {
         console.log('分享成功~');
     }, function (reason) {
         // 分享失败
