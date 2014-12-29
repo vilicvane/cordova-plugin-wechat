@@ -33,13 +33,13 @@ $APP_ID 为自己的 App ID, 并移除各平台下对应的 `<preference name="A
 
 反正我没添加, debug/release 都没问题, 不知道提交商店会不会有情况.
 
-### plugin.xml 和 WXEntryActivity.java
+### Android 相关: plugin.xml 和 WXEntryActivity.java
 
 另外因为牵涉到回调, 还需要修改一些插件文件.
 
 具体请参照 plugin.xml 中的 info 和注释修改, 如果使用 cordova 命令安装, 应该能直接看到提示.
 
-### src/ios/libWeChatSDK.a
+### iOS 相关: libWeChatSDK.a
 
 src/ios/libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, 要小一些, 应该是最后生产环境用的.
 我放进去的是完整版本, 要大一倍 (应该是包含了 x86 架构方便模拟器 debug), 可以自己去下载官方 SDK
