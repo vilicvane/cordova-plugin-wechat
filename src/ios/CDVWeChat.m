@@ -1,10 +1,12 @@
-//
-//  CDVWeChat.m
-//  HelloCordova
-//
-//  Created by VILIC VANE on 12/28/14.
-//
-//
+/*
+    Cordova WeChat Plugin
+    https://github.com/vilic/cordova-plugin-wechat
+
+    by VILIC VANE
+    https://github.com/vilic
+
+    MIT License
+*/
 
 #import <Foundation/Foundation.h>
 #import "CDVWeChat.h"
