@@ -4,7 +4,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="com.wordsbaking.cordova.wechat"
-    version="0.2.3">
+    version="0.2.4">
     <name>WeChat</name>
     <description>Cordova WeChat Plugin</description>
     <license>MIT</license>
@@ -15,6 +15,11 @@
     <js-module src="www/wechat.js" name="wechat">
         <clobbers target="WeChat" />
     </js-module>
+
+    <!--
+        Visual Studio Cordova Tools 用户需要移除各平台配置下的 <preference name="APP_ID" /> 元素,
+        并且将出现 $APP_ID 的地方替换为自己的 App ID.
+    -->
 
     <!-- ios -->
     <platform name="ios">
@@ -53,6 +58,11 @@
         
         <header-file src="src/ios/CDVWeChat.h" />
         <source-file src="src/ios/CDVWeChat.m" />
+
+        <info>
+注意: 内置的 iOS SDK 在发布应用时应该替换
+src/ios/libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, 要小一些, 应该是最后生产环境用的. 我放进去的是完整版本, 要大一倍 (应该是包含了 x86 架构方便模拟器 debug), 可以自己去下载官方 SDK 然后替换掉 platforms/ios/应用名称/Plugins 目录下的 libWeChatSDK.a.
+        </info>
     </platform>
 
     <!-- windows phone 8 -->
@@ -112,11 +122,18 @@
         <source-file src="src/android/libammsdk.jar" target-dir="libs" />
 
         <source-file src="src/android/WeChat.java" target-dir="src/com/wordsbaking/cordova/wechat" />
+        <!-- 非 Visual Studio Cordova Tools 用户 -->
+        <info>
+注意: Android 需要进行额外配置
+打开 platforms/android/src/wxapi/WXEntryActivity.java, 并将文件顶部的 package 名称修改为 [你的应用包名].wxapi, 比如我的应用包名是 com.wordsbaking.app, 则修改为 com.wordsbaking.app.wxapi 并把该文件连同 wxapi 文件夹一起移动到你的应用包名对应的目录下, 比如我的是 src/com/wordsbaking/app, 移动后 WXEntryActivity.java 文件就应该在目录 src/com/wordsbaking/app/wxapi 中.
+另外最好将下面的 target-dir 改为与包名对应目录, 并将插件目录 (plugins/com.wordsbaking.cordova.wechat) 下 src/android/WXEntryActivity.java 中的包名也改掉.
+        </info>
         <!--
-            打开 WXEntryActivity.java, 并将文件顶部的 package 名称修改为 [你的应用包名].wxapi
-            比如我的应用包名是 com.wordsbaking.app, 则修改为 com.wordsbaking.app.wxapi
-            另外将下面的 target-dir 改为与包名对应目录 (保留 src/)
+            Visual Studio Cordova Tools 用户:
+            因为 Cordova Tools 每次都会重新生成 Cordova 项目, 必须将下面的 target-dir 改为与应用包名对应目录
+            (参照上面的解释), 且需要修改项目插件目录 (plugins/com.wordsbaking.cordova.wechat) 中
+            WXEntryActivity.java 文件的包名为 [你的应用包名].wxapi.
         -->
-        <source-file src="src/android/WXEntryActivity.java" target-dir="src/com/wordsbaking/app/wxapi" />
+        <source-file src="src/android/WXEntryActivity.java" target-dir="src/wxapi" />
     </platform>
 </plugin>

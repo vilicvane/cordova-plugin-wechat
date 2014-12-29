@@ -31,20 +31,19 @@ $APP_ID 为自己的 App ID, 并移除各平台下对应的 `<preference name="A
 <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 ```
 
-反正我没添加, Debug Release 都没问题, 不知道提交商店会不会有情况.
+反正我没添加, debug/release 都没问题, 不知道提交商店会不会有情况.
 
-### plugin.xml 和 src/android/WXEntryActivity.java
+### plugin.xml 和 WXEntryActivity.java
 
 另外因为牵涉到回调, 还需要修改一些插件文件.
 
-打开插件的 plugin.xml 文件 (比如可能在目录 plugins/com.wordsbaking.cordova.wechat 下),
-Android 平台需要按照注释修改插件目录下 src/android 目录中的 WXEntryActivity.java 文件的包名,
-以及该文件的 source-file 配置对应的 target-dir.
+具体请参照 plugin.xml 中的 info 和注释修改, 如果使用 cordova 命令安装, 应该能直接看到提示.
 
 ### src/ios/libWeChatSDK.a
 
 src/ios/libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, 要小一些, 应该是最后生产环境用的.
-我放进去的是全的那个, 要大一倍 (应该是包含了 x86 架构方便模拟器 debug), 可以自己去下载官方 SDK 然后替换掉.
+我放进去的是完整版本, 要大一倍 (应该是包含了 x86 架构方便模拟器 debug), 可以自己去下载官方 SDK
+然后替换掉 platforms/ios/应用名称/Plugins 目录下的 libWeChatSDK.a.
 
 ## 使用
 

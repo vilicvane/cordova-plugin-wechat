@@ -1,5 +1,6 @@
 // 将包名更改为 [你的应用包名].wxapi
-// 另外请确认 plugin.xml 中该源文件对应的 target-dir 也更改到了相应的目录
+// 并将文件移动到包名对应的目录中
+// 另外最好也将 plugin.xml 中该源文件对应的 target-dir 更改为相应的目录
 package com.wordsbaking.app.wxapi;
 
 import com.tencent.mm.sdk.openapi.BaseReq;
