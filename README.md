@@ -43,13 +43,8 @@ Android 平台需要按照注释修改插件目录下 src/android 目录中的 W
 
 ### iOS (XCode)
 
-因为添加了一个静态库文件, 但是我没找到 Cordova 上可以自动化相关配置的用法, 所以这里需要手动处理,
-否则编译不通过. 方法也很简单, 用 XCode 打开 platforms/ios 目录下的项目, 打开 Build Phases 中的
-Link Binary With Libraries 下找到 libWeChatSDK.a, 随意拖动下顺序, XCode 就会自动补上原本缺少的
-Library Search Paths.
-
-另外 libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, 要小一些, 应该是最后生产环境用的.
-我放进去的是全的那个, 要大一倍 (应该是包含了 x86 架构方便模拟器 debug), 可以自己替换掉.
+src/ios/libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, 要小一些, 应该是最后生产环境用的.
+我放进去的是全的那个, 要大一倍 (应该是包含了 x86 架构方便模拟器 debug), 可以自己去下载官方 SDK 然后替换掉.
 
 ## 使用
 

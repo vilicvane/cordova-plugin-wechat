@@ -46,7 +46,7 @@
         <framework src="Security.framework" />
         <framework src="SystemConfiguration.framework" />
 
-        <framework src="src/ios/libWeChatSDK.a" custom="true" />
+        <source-file src="src/ios/libWeChatSDK.a" framework="true" />
         
         <header-file src="src/ios/WXApi.h" />
         <header-file src="src/ios/WXApiObject.h" />
