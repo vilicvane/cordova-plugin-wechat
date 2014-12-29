@@ -32,8 +32,8 @@ const int SCENE_TIMELINE = 2;
     [WXApi registerApp: appId];
 }
 
-- (void)share:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *result = nil;
+- (void)share:(CDVInvokedUrlCommand*)command {
+    CDVPluginResult* result = nil;
     
     if (![WXApi isWXAppInstalled]) {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:ERR_WECHAT_NOT_INSTALLED];
@@ -125,7 +125,7 @@ const int SCENE_TIMELINE = 2;
             case CDVWeChatShareTypeWebpage:
             default:
                 mediaObject = [WXWebpageObject object];
-                ((WXWebpageObject *)mediaObject).webpageUrl = url;
+                ((WXWebpageObject*)mediaObject).webpageUrl = url;
                 break;
         }
         
@@ -174,7 +174,7 @@ const int SCENE_TIMELINE = 2;
     self.currentCallbackId = command.callbackId;
 }
 
-- (void)getLastResult:(CDVInvokedUrlCommand *)command {
+- (void)getLastResult:(CDVInvokedUrlCommand*)command {
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT messageAsString:NO_RESULT];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
@@ -223,7 +223,7 @@ const int SCENE_TIMELINE = 2;
     self.currentCallbackId = nil;
 }
 
-- (void)handleOpenURL:(NSNotification *)notification {
+- (void)handleOpenURL:(NSNotification*)notification {
     NSURL* url = [notification object];
     
     if ([url isKindOfClass:[NSURL class]] && [url.scheme isEqualToString:self.wechatAppId]) {
