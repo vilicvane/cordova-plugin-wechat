@@ -73,6 +73,7 @@ WeChat
 // WP 下有个问题是, 回调会调用 WP 中的另一个页面,
 // 而当回调完成返回 Cordova 的页面时页面会重新加载.
 // 为了让 WP 能处理回调结果, 另外添加了方法 getLastResult.
+// 其他平台该方法永远失败并且 reason 的值为 'NO_RESULT'.
 WeChat
     .getLastResult(function () {
         console.log('分享成功~');
