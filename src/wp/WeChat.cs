@@ -1,4 +1,4 @@
-﻿/*
+/*
     Cordova WeChat Plugin
     https://github.com/vilic/cordova-plugin-wechat
 
@@ -10,18 +10,12 @@
 
 using MicroMsg.sdk;
 using System;
-using System.Windows;
 using System.Windows.Navigation;
-using System.Linq;
-using System.Xml.Linq;
-using System.Diagnostics;
 using System.Runtime.Serialization;
 using WPCordovaClassLib.Cordova;
 using WPCordovaClassLib.Cordova.Commands;
 using WPCordovaClassLib.Cordova.JSON;
 using WPCordovaClassLib.CordovaLib;
-using Microsoft.Phone.Shell;
-using Microsoft.Phone.Controls;
 using Windows.Phone.Storage.SharedAccess;
 using Cordova.Extension.Commands;
 
@@ -58,12 +52,6 @@ class WeChatAssociationUriMapper : UriMapperBase {
         }
 
         return new Uri("/MainPage.xaml", UriKind.Relative);
-    }
-}
-
-public class PhoneApplicationFrame : Microsoft.Phone.Controls.PhoneApplicationFrame {
-    public PhoneApplicationFrame() {
-        UriMapper = new WeChatAssociationUriMapper(UriMapper);
     }
 }
 

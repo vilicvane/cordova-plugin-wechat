@@ -4,7 +4,7 @@
   xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
   id="com.wordsbaking.cordova.wechat"
-  version="0.2.5">
+  version="0.2.6">
   <name>WeChat</name>
   <description>Cordova WeChat Plugin</description>
   <author>VILIC VANE</author>
@@ -69,6 +69,8 @@ src/ios/libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, �
   <!-- windows phone 8 -->
   <platform name="wp8">
     <preference name="APP_ID" />
+    
+    <hook type="after_plugin_install" src="scripts/wp-install.js" />
 
     <config-file target="config.xml" parent="/*">
       <feature name="WeChat">
