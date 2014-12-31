@@ -1,4 +1,4 @@
-# Cordova 微信分享插件
+# Cordova/PhoneGap 微信分享插件
 
 Inspired by https://github.com/xu-li/cordova-plugin-wechat  
 其实本来 fork 了, 但因为一方面没有支持 Windows Phone, 另一方面 Android 的支持也很有限, 所以重写了.
