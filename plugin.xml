@@ -1,139 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    xmlns:rim="http://www.blackberry.com/ns/widgets"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.wordsbaking.cordova.wechat"
-    version="0.2.4">
-    <name>WeChat</name>
-    <description>Cordova WeChat Plugin</description>
-    <license>MIT</license>
-    <keywords>cordova,wechat,weixin,微信</keywords>
-    <repo>https://github.com/vilic/cordova-plugin-wechat.git</repo>
-    <issue>https://github.com/vilic/cordova-plugin-wechat/issues</issue>
+<plugin
+  xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  id="com.wordsbaking.cordova.wechat"
+  version="0.2.5">
+  <name>WeChat</name>
+  <description>Cordova WeChat Plugin</description>
+  <author>VILIC VANE</author>
+  <license>MIT</license>
+  <keywords>cordova,wechat,weixin,微信</keywords>
+  <repo>https://github.com/vilic/cordova-plugin-wechat.git</repo>
+  <issue>https://github.com/vilic/cordova-plugin-wechat/issues</issue>
 
-    <js-module src="www/wechat.js" name="wechat">
-        <clobbers target="WeChat" />
-    </js-module>
+  <js-module src="www/wechat.js" name="wechat">
+    <clobbers target="WeChat" />
+  </js-module>
 
-    <!--
-        Visual Studio Cordova Tools 用户需要移除各平台配置下的 <preference name="APP_ID" /> 元素,
-        并且将出现 $APP_ID 的地方替换为自己的 App ID.
-    -->
+  <!--
+    Visual Studio Cordova Tools 用户需要移除各平台配置下的 <preference name="APP_ID" /> 元素,
+    并且将出现 $APP_ID 的地方替换为自己的 App ID.
+  -->
 
-    <!-- ios -->
-    <platform name="ios">
-        <preference name="APP_ID" />
+  <!-- ios -->
+  <platform name="ios">
+    <preference name="APP_ID" />
 
-        <config-file target="config.xml" parent="/*">
-            <feature name="WeChat">
-                <param name="ios-package" value="CDVWeChat"/>
-            </feature>
-            <preference name="wechatappid" value="$APP_ID" />
-        </config-file>
-        
-        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
-            <array>
-                <dict>
-                    <key>CFBundleURLName</key>
-                    <string>weixin</string>
-                    <key>CFBundleURLSchemes</key>
-                    <array>
-                        <string>$APP_ID</string>
-                    </array>
-                </dict>
-            </array>
-        </config-file>
-        
-        <framework src="libc++.dylib" />
-        <framework src="libz.dylib" />
-        <framework src="libsqlite3.0.dylib" />
-        <framework src="Security.framework" />
-        <framework src="SystemConfiguration.framework" />
+    <config-file target="config.xml" parent="/*">
+      <feature name="WeChat">
+        <param name="ios-package" value="CDVWeChat"/>
+      </feature>
+      <preference name="wechatappid" value="$APP_ID" />
+    </config-file>
 
-        <source-file src="src/ios/libWeChatSDK.a" framework="true" />
-        
-        <header-file src="src/ios/WXApi.h" />
-        <header-file src="src/ios/WXApiObject.h" />
-        
-        <header-file src="src/ios/CDVWeChat.h" />
-        <source-file src="src/ios/CDVWeChat.m" />
+    <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+      <array>
+        <dict>
+          <key>CFBundleURLName</key>
+          <string>weixin</string>
+          <key>CFBundleURLSchemes</key>
+          <array>
+            <string>$APP_ID</string>
+          </array>
+        </dict>
+      </array>
+    </config-file>
 
-        <info>
+    <framework src="libc++.dylib" />
+    <framework src="libz.dylib" />
+    <framework src="libsqlite3.0.dylib" />
+    <framework src="Security.framework" />
+    <framework src="SystemConfiguration.framework" />
+
+    <source-file src="src/ios/libWeChatSDK.a" framework="true" />
+
+    <header-file src="src/ios/WXApi.h" />
+    <header-file src="src/ios/WXApiObject.h" />
+
+    <header-file src="src/ios/CDVWeChat.h" />
+    <source-file src="src/ios/CDVWeChat.m" />
+
+    <info>
 注意: 内置的 iOS SDK 在发布应用时应该替换
 src/ios/libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, 要小一些, 应该是最后生产环境用的. 我放进去的是完整版本, 要大一倍 (应该是包含了 x86 架构方便模拟器 debug), 可以自己去下载官方 SDK 然后替换掉 platforms/ios/应用名称/Plugins 目录下的 libWeChatSDK.a.
-        </info>
-    </platform>
+    </info>
+  </platform>
 
-    <!-- windows phone 8 -->
-    <platform name="wp8">
-        <preference name="APP_ID" />
+  <!-- windows phone 8 -->
+  <platform name="wp8">
+    <preference name="APP_ID" />
 
-        <config-file target="config.xml" parent="/*">
-            <feature name="WeChat">
-                <param name="wp-package" value="WeChat"/>
-            </feature>
-            <preference name="wechatappid" value="$APP_ID" />
-        </config-file>
+    <config-file target="config.xml" parent="/*">
+      <feature name="WeChat">
+        <param name="wp-package" value="WeChat"/>
+      </feature>
+      <preference name="wechatappid" value="$APP_ID" />
+    </config-file>
 
-        <config-file target="Properties/WMAppManifest.xml" parent="/*/App" after="Tokens">
-            <Extensions>
-                <FileTypeAssociation Name="Cordova WeChat Plugin" TaskID="_default" NavUriFragment="fileToken=%s">
-                    <SupportedFileTypes>
-                        <FileType>.$APP_ID</FileType>
-                        <FileType>.wechatapp</FileType>
-                    </SupportedFileTypes>
-                </FileTypeAssociation>
-            </Extensions>
-        </config-file>
+    <config-file target="Properties/WMAppManifest.xml" parent="/*/App" after="Tokens">
+      <Extensions>
+        <FileTypeAssociation Name="Cordova WeChat Plugin" TaskID="_default" NavUriFragment="fileToken=%s">
+          <SupportedFileTypes>
+            <FileType>.$APP_ID</FileType>
+            <FileType>.wechatapp</FileType>
+          </SupportedFileTypes>
+        </FileTypeAssociation>
+      </Extensions>
+    </config-file>
 
-        <framework src="src/wp/Google.ProtocolBuffersLite.dll" custom="true" />
-        <framework src="src/wp/MicroMsgSDK.dll" custom="true" />
-        
-        <source-file src="src/wp/WeChat.cs" />
-        <source-file src="src/wp/WeChatCallbackPage.xaml" target-dir="../../" />
-        <source-file src="src/wp/WeChatCallbackPage.xaml.cs" target-dir="../../" />
-    </platform>
+    <framework src="src/wp/Google.ProtocolBuffersLite.dll" custom="true" />
+    <framework src="src/wp/MicroMsgSDK.dll" custom="true" />
 
-    <!-- android -->
-    <platform name="android">
-        <preference name="APP_ID" />
+    <source-file src="src/wp/WeChat.cs" />
+    <source-file src="src/wp/WeChatCallbackPage.xaml" target-dir="../../" />
+    <source-file src="src/wp/WeChatCallbackPage.xaml.cs" target-dir="../../" />
+  </platform>
 
-        <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="WeChat" >
-                <param name="android-package" value="com.wordsbaking.cordova.wechat.WeChat"/>
-            </feature>
-            <preference name="wechatappid" value="$APP_ID" />
-        </config-file>
+  <!-- android -->
+  <platform name="android">
+    <preference name="APP_ID" />
+    
+    <hook type="after_plugin_install" src="scripts/android-install.js" />
 
-        <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity
-                android:name=".wxapi.WXEntryActivity"
-                android:label="@string/launcher_name"
-                android:exported="true">
-                <intent-filter>
-                    <action android:name="android.intent.action.VIEW"/>
-                    <category android:name="android.intent.category.DEFAULT"/>
-                    <data android:scheme="$APP_ID"/>
-                </intent-filter>
-            </activity>
-        </config-file>
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="WeChat" >
+        <param name="android-package" value="com.wordsbaking.cordova.wechat.WeChat"/>
+      </feature>
+      <preference name="wechatappid" value="$APP_ID" />
+    </config-file>
 
-        <source-file src="src/android/libammsdk.jar" target-dir="libs" />
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <activity
+          android:name=".wxapi.WXEntryActivity"
+          android:label="@string/launcher_name"
+          android:exported="true">
+        <intent-filter>
+          <action android:name="android.intent.action.VIEW"/>
+          <category android:name="android.intent.category.DEFAULT"/>
+          <data android:scheme="$APP_ID"/>
+        </intent-filter>
+      </activity>
+    </config-file>
 
-        <source-file src="src/android/WeChat.java" target-dir="src/com/wordsbaking/cordova/wechat" />
-        <!-- 非 Visual Studio Cordova Tools 用户 -->
-        <info>
-注意: Android 需要进行额外配置
-打开 platforms/android/src/wxapi/WXEntryActivity.java, 并将文件顶部的 package 名称修改为 [你的应用包名].wxapi, 比如我的应用包名是 com.wordsbaking.app, 则修改为 com.wordsbaking.app.wxapi 并把该文件连同 wxapi 文件夹一起移动到你的应用包名对应的目录下, 比如我的是 src/com/wordsbaking/app, 移动后 WXEntryActivity.java 文件就应该在目录 src/com/wordsbaking/app/wxapi 中.
-另外最好将下面的 target-dir 改为与包名对应目录, 并将插件目录 (plugins/com.wordsbaking.cordova.wechat) 下 src/android/WXEntryActivity.java 中的包名也改掉.
-        </info>
-        <!--
-            Visual Studio Cordova Tools 用户:
-            因为 Cordova Tools 每次都会重新生成 Cordova 项目, 必须将下面的 target-dir 改为与应用包名对应目录
-            (参照上面的解释), 且需要修改项目插件目录 (plugins/com.wordsbaking.cordova.wechat) 中
-            WXEntryActivity.java 文件的包名为 [你的应用包名].wxapi.
-        -->
-        <source-file src="src/android/WXEntryActivity.java" target-dir="src/wxapi" />
-    </platform>
+    <source-file src="src/android/libammsdk.jar" target-dir="libs" />
+
+    <source-file src="src/android/WeChat.java" target-dir="src/com/wordsbaking/cordova/wechat" />
+    <!--
+        另外一个源文件 wxapi/WXEntryActivity.java 会被钩子 (hook) 脚本添加到你的项目 id 对应的文件夹中,
+        除此之外脚本还会修改该文件中的包名, 以匹配应用 id.
+    -->
+  </platform>
 </plugin>

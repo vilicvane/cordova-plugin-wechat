@@ -1,4 +1,4 @@
-﻿# Cordova 微信分享插件
+# Cordova 微信分享插件
 
 Inspired by https://github.com/xu-li/cordova-plugin-wechat  
 其实本来 fork 了, 但因为一方面没有支持 Windows Phone, 另一方面 Android 的支持也很有限, 所以重写了.
@@ -32,12 +32,6 @@ $APP_ID 为自己的 App ID, 并移除各平台下对应的 `<preference name="A
 ```
 
 反正我没添加, debug/release 都没问题, 不知道提交商店会不会有情况.
-
-### Android 相关: plugin.xml 和 WXEntryActivity.java
-
-另外因为牵涉到回调, 还需要修改一些插件文件.
-
-具体请参照 plugin.xml 中的 info 和注释修改, 如果使用 cordova 命令安装, 应该能直接看到提示.
 
 ### iOS 相关: libWeChatSDK.a
 
