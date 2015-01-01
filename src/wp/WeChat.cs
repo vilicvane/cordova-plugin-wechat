@@ -63,7 +63,7 @@ class WeChatAssociationUriMapper : UriMapperBase {
 
 public class PhoneApplicationFrame : Microsoft.Phone.Controls.PhoneApplicationFrame {
     public PhoneApplicationFrame() {
-        UriMapper = new WeChatAssociationUriMapper();
+        UriMapper = new WeChatAssociationUriMapper(UriMapper);
     }
 }
 
