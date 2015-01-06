@@ -2,7 +2,7 @@ var fs = require('fs');
 
 module.exports = function (context) {
     var options = context.opts;
-    var projectConfigFile = options.projectRoot + '\\config.xml';
+    var projectConfigFile = options.projectRoot + '/config.xml';
     
     var projectIdRegex = /<widget[^>]*\sid=(["'])((?:(?!\1|\s).)+)/i;
     
@@ -14,14 +14,14 @@ module.exports = function (context) {
         throw new Error('missing project id');
     }
     
-    var entryJavaFile = options.plugin.dir + '\\src\\android\\WXEntryActivity.java';
+    var entryJavaFile = options.plugin.dir + '/srci/androidi/WXEntryActivity.java';
     
     var entryJavaCode = fs.readFileSync(entryJavaFile, 'utf-8');
     
     entryJavaCode = entryJavaCode.replace(/^package .+/m, 'package ' + projectId + '.wxapi;');
     
-    var androidSrcDir = options.projectRoot + '\\platforms\\android\\src\\';
-    var wxapiDir = projectId.replace(/\./g, '\\') + '\\wxapi\\';
+    var androidSrcDir = options.projectRoot + '/platforms/android/src/';
+    var wxapiDir = projectId.replace(/\./g, '/') + '/wxapi/';
     
     var dirPartRegex = /[^\\\/]+[\\\/]*/g;
     var dirPartGroups;
