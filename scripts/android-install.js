@@ -14,7 +14,7 @@ module.exports = function (context) {
         throw new Error('missing project id');
     }
     
-    var entryJavaFile = options.plugin.dir + '/srci/androidi/WXEntryActivity.java';
+    var entryJavaFile = options.plugin.dir + '/src/android/WXEntryActivity.java';
     
     var entryJavaCode = fs.readFileSync(entryJavaFile, 'utf-8');
     
