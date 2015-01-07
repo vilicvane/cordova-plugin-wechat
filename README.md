@@ -9,6 +9,8 @@ Inspired by https://github.com/xu-li/cordova-plugin-wechat
 
 ## 安装
 
+一定不要忘记加上后面的 `--variable APP_ID=********`!
+
 ```sh
 cordova plugin add com.wordsbaking.cordova.wechat --variable APP_ID=[你的APPID]
 ```
