@@ -14,28 +14,35 @@ module.exports = function (context) {
         throw new Error('missing project id');
     }
     
-    var entryJavaFile = options.plugin.dir + '/src/android/WXEntryActivity.java';
-    
-    var entryJavaCode = fs.readFileSync(entryJavaFile, 'utf-8');
-    
-    entryJavaCode = entryJavaCode.replace(/^package .+/m, 'package ' + projectId + '.wxapi;');
-    
+    var wechatEntryFile = 'WXEntryActivity.java';
     var androidSrcDir = options.projectRoot + '/platforms/android/src/';
     var wxapiDir = projectId.replace(/\./g, '/') + '/wxapi/';
-    
-    var dirPartRegex = /[^\\\/]+[\\\/]*/g;
-    var dirPartGroups;
-    var dirToCreate = androidSrcDir;
-    
-    while (dirPartGroups = dirPartRegex.exec(wxapiDir)) {
-        dirToCreate += dirPartGroups[0];
         
-        if (!fs.existsSync(dirToCreate)) {
-            fs.mkdirSync(dirToCreate);
+    var entryJavaFileTarget = androidSrcDir + wxapiDir + wechatEntryFile;
+    
+    if (context.hook == 'after_plugin_install') {
+        var entryJavaFile = options.plugin.dir + '/src/android/' + wechatEntryFile;
+        var entryJavaCode = fs.readFileSync(entryJavaFile, 'utf-8');
+        
+        entryJavaCode = entryJavaCode.replace(/^package .+/m, 'package ' + projectId + '.wxapi;');
+        
+        var dirPartRegex = /[^\\\/]+[\\\/]*/g;
+        var dirPartGroups;
+        var dirToCreate = androidSrcDir;
+        
+        while (dirPartGroups = dirPartRegex.exec(wxapiDir)) {
+            dirToCreate += dirPartGroups[0];
+            
+            if (!fs.existsSync(dirToCreate)) {
+                fs.mkdirSync(dirToCreate);
+            }
         }
+        
+        fs.writeFileSync(entryJavaFileTarget, entryJavaCode);
+    } else {
+        try {
+            fs.unlinkSync(entryJavaFileTarget);
+            fs.rmdirSync(androidSrcDir + wxapiDir);
+        } catch (e) { }
     }
-    
-    var entryJavaFileTarget = androidSrcDir + wxapiDir + 'WXEntryActivity.java';
-    
-    fs.writeFileSync(entryJavaFileTarget, entryJavaCode);
 };

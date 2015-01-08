@@ -9,14 +9,17 @@ Inspired by https://github.com/xu-li/cordova-plugin-wechat
 
 ## 安装
 
-一定不要忘记加上后面的 `--variable APP_ID=********`!
+一定不要忘记加上后面的 `--variable APP_ID=********`.
 
 ```sh
 cordova plugin add com.wordsbaking.cordova.wechat --variable APP_ID=[你的APPID]
 ```
 
-如果是 Visual Studio 当前的 Cordova Tools, 貌似暂时没办法设置变量, 可以自行在 plugin.xml 中替换
-$APP_ID 为自己的 App ID, 并移除各平台下对应的 `<preference name="APP_ID" />`.
+另外貌似 Cordova 的变量信息是按平台保存的, 如果安装插件时尚未添加某个平台, 即便之前加上了变量,
+之后添加平台时依旧会报错. 此时可以先卸载插件, 添加平台后带上变量重新安装.
+
+如果是 Visual Studio Tools for Apache Cordova, 貌似暂时没办法设置变量, 可以自行在 plugin.xml
+中替换 $APP_ID 为自己的 App ID, 并移除各平台下对应的 `<preference name="APP_ID" />`.
 
 ## 配置
 

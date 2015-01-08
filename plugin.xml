@@ -4,7 +4,7 @@
   xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
   id="com.wordsbaking.cordova.wechat"
-  version="0.2.8">
+  version="0.2.9">
   <name>WeChat</name>
   <description>Cordova WeChat Plugin</description>
   <author>VILIC VANE</author>
@@ -18,7 +18,7 @@
   </js-module>
 
   <!--
-    Visual Studio Cordova Tools 用户需要移除各平台配置下的 <preference name="APP_ID" /> 元素,
+    Visual Studio Tools for Apache Cordova 用户需要移除各平台配置下的 <preference name="APP_ID" /> 元素,
     并且将出现 $APP_ID 的地方替换为自己的 App ID.
   -->
 
@@ -71,6 +71,7 @@ src/ios/libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, �
     <preference name="APP_ID" />
     
     <hook type="after_plugin_install" src="scripts/wp-install.js" />
+    <hook type="before_plugin_uninstall" src="scripts/wp-install.js" />
 
     <config-file target="config.xml" parent="/*">
       <feature name="WeChat">
@@ -103,6 +104,7 @@ src/ios/libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, �
     <preference name="APP_ID" />
     
     <hook type="after_plugin_install" src="scripts/android-install.js" />
+    <hook type="before_plugin_uninstall" src="scripts/android-install.js" />
 
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="WeChat" >
