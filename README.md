@@ -6,6 +6,8 @@ Inspired by https://github.com/xu-li/cordova-plugin-wechat
 支持 iOS, WP, Android, 都有回调 (WP 有限制, 具体看下面的例子). 分享内容只支持文本, 图片, 和链接.
 
 另外需要注意的是 Android 不仅需要审核通过, 还需要那什么签名吻合, 所以得要 release 的 keystore 来签名.
+关于这个问题写了个指南, 如果 Android 搞不定的可以看看
+[Android 微信 SDK 签名问题](https://github.com/vilic/cordova-plugin-wechat/wiki/Android-%E5%BE%AE%E4%BF%A1-SDK-%E7%AD%BE%E5%90%8D%E9%97%AE%E9%A2%98).
 
 ## 安装
 
