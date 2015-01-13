@@ -20,8 +20,13 @@ cordova plugin add com.wordsbaking.cordova.wechat --variable APP_ID=[你的APPID
 另外貌似 Cordova 的变量信息是按平台保存的, 如果安装插件时尚未添加某个平台, 即便之前加上了变量,
 之后添加平台时依旧会报错. 此时可以先卸载插件, 添加平台后带上变量重新安装.
 
-如果是 Visual Studio Tools for Apache Cordova, 貌似暂时没办法设置变量, 可以自行在 plugin.xml
-中替换 $APP_ID 为自己的 App ID, 并移除各平台下对应的 `<preference name="APP_ID" />`.
+如果是 Visual Studio Tools for Apache Cordova, 可以这样配置 App ID:
+
+```xml
+<vs:plugin name="com.wordsbaking.cordova.wechat" version="0.2.9">
+    <param name="APP_ID" value="[你的APPID]" />
+</vs:plugin>
+```
 
 ## 配置
 

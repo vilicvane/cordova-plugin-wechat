@@ -17,11 +17,6 @@
     <clobbers target="WeChat" />
   </js-module>
 
-  <!--
-    Visual Studio Tools for Apache Cordova 用户需要移除各平台配置下的 <preference name="APP_ID" /> 元素,
-    并且将出现 $APP_ID 的地方替换为自己的 App ID.
-  -->
-
   <!-- ios -->
   <platform name="ios">
     <preference name="APP_ID" />
