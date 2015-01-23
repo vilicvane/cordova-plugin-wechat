@@ -47,32 +47,6 @@ exports.share = function (message, scene, onfulfill, onreject) {
     return promise;
 };
 
-exports.getLastResult = function (onfulfill, onreject) {
-    var ThenFail = window.ThenFail;
-    var promise;
-
-    if (ThenFail && !onfulfill && !onreject) {
-        promise = new ThenFail();
-    }
-
-    cordova
-        .exec(function () {
-            if (promise) {
-                promise.resolve();
-            } else if (onfulfill) {
-                onfulfill();
-            }
-        }, function (err) {
-            if (promise) {
-                promise.reject(err);
-            } else if (onreject) {
-                onreject(err);
-            }
-        }, 'WeChat', 'getLastResult', []);
-
-    return promise;
-};
-
 exports.Scene = {
     chosenByUser: 0,
     session: 1,

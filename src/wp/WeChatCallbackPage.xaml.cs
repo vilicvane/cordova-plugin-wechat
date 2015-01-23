@@ -33,8 +33,10 @@ namespace Cordova.Extension {
         }
 
         public override void On_SendMessageToWX_Response(SendMessageToWX.Resp response) {
-            WeChat.response = response;
             goBack();
+
+            var status = response.ErrCode == 0 ? PluginResult.Status.OK : PluginResult.Status.ERROR;
+            WeChat.current.dispatchResult(status, response.ErrStr);
         }
 
         public override void On_SendAuth_Response(SendAuth.Resp response) {

@@ -72,8 +72,6 @@ public class WeChat extends CordovaPlugin {
             throws JSONException {
         if (action.equals("share")) {
             share(args, callbackContext);
-        } else if (action.equals("getLastResult")) {
-            callbackContext.error(WeChat.NO_RESULT);
         } else {
             return false;
         }

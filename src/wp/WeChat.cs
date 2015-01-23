@@ -18,6 +18,11 @@ using WPCordovaClassLib.Cordova.JSON;
 using WPCordovaClassLib.CordovaLib;
 using Windows.Phone.Storage.SharedAccess;
 using Cordova.Extension.Commands;
+using System.Windows;
+using System.IO;
+using System.Linq;
+using System.Xml.Linq;
+using Microsoft.Phone.Shell;
 
 class WeChatAssociationUriMapper : UriMapperBase {
     UriMapperBase upper;
@@ -113,18 +118,32 @@ namespace Cordova.Extension.Commands {
     }
 
     class WeChat : BaseCommand {
-        static ConfigHandler configHandler;
-
         public static string appId;
         static IWXAPI api;
 
-        public static WeChat wechat = null;
-        public static SendMessageToWX.Resp response = null;
+        public static WeChat current = null;
 
         public const string WECHAT_APPID_KEY = "wechatappid";
         public const string ERR_INVALID_OPTIONS = "ERR_INVALID_OPTIONS";
         public const string ERR_UNSUPPORTED_MEDIA_TYPE = "ERR_UNSUPPORTED_MEDIA_TYPE";
         public const string NO_RESULT = "NO_RESULT";
+
+        static WeChat() {
+            var streamInfo = Application.GetResourceStream(new Uri("config.xml", UriKind.Relative));
+
+            var sr = new StreamReader(streamInfo.Stream);
+            var document = XDocument.Parse(sr.ReadToEnd());
+
+            appId = (from results in document.Descendants()
+                         where results.Name.LocalName == "preference" && ((string)results.Attribute("name") == WECHAT_APPID_KEY)
+                         select (string)results.Attribute("value")).First();
+
+            api = WXAPIFactory.CreateWXAPI(appId);
+        }
+
+        public WeChat() {
+            current = this;
+        }
 
         public void share(string argsJSON) {
             var args = JsonHelper.Deserialize<string[]>(argsJSON);
@@ -199,30 +218,8 @@ namespace Cordova.Extension.Commands {
             }
         }
 
-        public void getLastResult(string optionsJSON) {
-            if (response != null) {
-                var status = response.ErrCode == 0 ? PluginResult.Status.OK : PluginResult.Status.ERROR;
-                wechat.dispatchResult(status, response.ErrStr);
-            } else {
-                wechat.dispatchResult(PluginResult.Status.NO_RESULT, NO_RESULT);
-            }
-        }
-
         public void dispatchResult(PluginResult.Status status, string message) {
-            response = null;
             DispatchCommandResult(new PluginResult(status, message));
-        }
-
-        static WeChat() {
-            configHandler = new ConfigHandler();
-            configHandler.LoadAppPackageConfig();
-
-            appId = configHandler.GetPreference(WECHAT_APPID_KEY);
-            api = WXAPIFactory.CreateWXAPI(appId);
-        }
-
-        public WeChat() {
-            wechat = this;
         }
     }
 

@@ -23,4 +23,18 @@ module.exports = function (context) {
     }
         
     fs.writeFileSync(appXamlCsFile, appXamlCsCode);
+
+    if (context.hook == 'after_plugin_install') {
+        var wmAppManifestFile = options.projectRoot + '\\platforms\\wp8\\Properties\\WMAppManifest.xml';
+        var wmAppManifestXml = fs.readFileSync(wmAppManifestFile, 'utf-8');
+
+        wmAppManifestXml = wmAppManifestXml
+            .replace(/<DefaultTask\s[^>]*Name="_default"[^>]*\/?>/, function (m) {
+                return m
+                    .replace(/\bActivationPolicy\s*=\s*"[^"]*"\s?/, '')
+                    .replace(/(\s?\/?>)$/, ' ActivationPolicy="Resume"$1');
+            });
+
+        fs.writeFileSync(wmAppManifestFile, wmAppManifestXml);
+    }
 };

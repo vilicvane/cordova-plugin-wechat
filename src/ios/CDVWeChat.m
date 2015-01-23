@@ -176,11 +176,6 @@ const int SCENE_TIMELINE = 2;
     self.currentCallbackId = command.callbackId;
 }
 
-- (void)getLastResult:(CDVInvokedUrlCommand*)command {
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT messageAsString:NO_RESULT];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-}
-
 - (NSData*)decodeBase64:(NSString*)base64String {
     NSString* dataUrl =[NSString stringWithFormat:@"data:application/octet-stream;base64,%@", base64String];
     NSURL* url = [NSURL URLWithString: dataUrl];

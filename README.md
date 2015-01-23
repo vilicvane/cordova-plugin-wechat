@@ -1,11 +1,10 @@
 # Cordova/PhoneGap 微信分享插件
 
-Inspired by https://github.com/xu-li/cordova-plugin-wechat  
-其实本来 fork 了, 但因为一方面没有支持 Windows Phone, 另一方面 Android 的支持也很有限, 所以重写了.
+Inspired by https://github.com/xu-li/cordova-plugin-wechat
 
-支持 iOS, WP, Android, 都有回调 (WP 有限制, 具体看下面的例子). 分享内容只支持文本, 图片, 和链接.
+支持 iOS, WP, Android, 都有回调. 分享内容只支持文本, 图片, 和链接.
 
-另外需要注意的是 Android 不仅需要审核通过, 还需要那什么签名吻合, 所以得要 release 的 keystore 来签名.
+**另外需要注意的是 Android 不仅需要审核通过, 还需要那什么签名吻合, 所以得要 release 的 keystore 来签名.**
 关于这个问题写了个指南, 如果 Android 搞不定的可以看看
 [Android 微信 SDK 签名问题](https://github.com/vilic/cordova-plugin-wechat/wiki/Android-%E5%BE%AE%E4%BF%A1-SDK-%E7%AD%BE%E5%90%8D%E9%97%AE%E9%A2%98).
 
@@ -23,7 +22,7 @@ cordova plugin add com.wordsbaking.cordova.wechat --variable APP_ID=[你的APPID
 如果是 Visual Studio Tools for Apache Cordova, 可以这样配置 App ID:
 
 ```xml
-<vs:plugin name="com.wordsbaking.cordova.wechat" version="0.2.9">
+<vs:plugin name="com.wordsbaking.cordova.wechat" version="0.3.0">
     <param name="APP_ID" value="[你的APPID]" />
 </vs:plugin>
 ```
@@ -34,7 +33,7 @@ cordova plugin add com.wordsbaking.cordova.wechat --variable APP_ID=[你的APPID
 
 ### config.xml
 
-可能需要添加一些权限, 比如安卓貌似是要添加这些:
+**可能**需要添加一些权限, 比如安卓貌似是要添加这些:
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
@@ -75,22 +74,6 @@ WeChat
     }, function (reason) {
         // 分享失败
         console.log(reason);
-    });
-
-// WP 下有个问题是, 回调会调用 WP 中的另一个页面,
-// 而当回调完成返回 Cordova 的页面时页面会重新加载.
-// 为了让 WP 能处理回调结果, 另外添加了方法 getLastResult.
-// 其他平台该方法永远失败并且 reason 的值为 'NO_RESULT'.
-WeChat
-    .getLastResult(function () {
-        console.log('分享成功~');
-    }, function (reason) {
-        if (reason == 'NO_RESULT') {
-            // 正常加载
-        } else {
-            // 分享失败
-            console.log(reason);
-        }
     });
 ```
 
@@ -139,14 +122,8 @@ declare module WeChat {
     function share(text: string, scene: Scene, onfulfill: () => void, onreject: (reason) => void): void;
     function share(options: IMessageOptions, scene: Scene, onfulfill: () => void, onreject: (reason) => void): void;
     
-    // 下面两个是我自己用的哈哈哈, 因为需要用到我的 ThenFail Promise 库.
+    // 下面两个是我自己用的哈哈哈, 因为需要用到我的 [ThenFail (Promises/A+ 实现)](https://github.com/vilic/thenfail).
     function share(text: string, scene: Scene): ThenFail<void>;
     function share(options: IMessageOptions, scene: Scene): ThenFail<void>;
-
-    // 用于 WP 下获得回调结果.
-    function getLastResult(onfulfill: () => void, onreject: (reason) => void): void;
-    
-    // 这个也需要 ThenFail 的库, 可以忽略.
-    function getLastResult(): ThenFail<void>;
 }
 ```
