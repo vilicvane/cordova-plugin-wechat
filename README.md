@@ -122,7 +122,7 @@ declare module WeChat {
     function share(text: string, scene: Scene, onfulfill: () => void, onreject: (reason) => void): void;
     function share(options: IMessageOptions, scene: Scene, onfulfill: () => void, onreject: (reason) => void): void;
     
-    // 下面两个是我自己用的哈哈哈, 因为需要用到我的 [ThenFail (Promises/A+ 实现)](https://github.com/vilic/thenfail).
+    // 下面两个是我自己用的哈哈哈, 因为需要用到我的 ThenFail (https://github.com/vilic/thenfail).
     function share(text: string, scene: Scene): ThenFail<void>;
     function share(options: IMessageOptions, scene: Scene): ThenFail<void>;
 }
