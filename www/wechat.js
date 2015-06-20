@@ -63,31 +63,6 @@ exports.ShareType = {
     webpage: 7
 };
 
-exports.login = function (scope, state, onfulfill, onreject) {
-    var ThenFail = window.ThenFail;
-    var promise;
-
-    if (ThenFail && !onfulfill && !onreject) {
-        promise = new ThenFail();
-    }
-
-    cordova
-        .exec(function () {
-            if (promise) {promise.resolve();}
-            if (onfulfill) {onfulfill();}
-        }, function (err) {
-            if (promise) {promise.reject(err);}
-            if (onreject) {onreject(err);}
-        }, 'WeChat', 'login', [
-            {
-                scope: scope,
-                state: state
-            }
-        ]);
-
-    return promise;
-};
-
 exports.isInstalled = function (onfulfill, onreject) {
     var ThenFail = window.ThenFail;
     var promise;
