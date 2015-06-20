@@ -2,6 +2,7 @@ package com.wordsbaking.cordova.wechat;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CordovaInterface;
@@ -72,6 +73,8 @@ public class WeChat extends CordovaPlugin {
             throws JSONException {
         if (action.equals("share")) {
             share(args, callbackContext);
+        } else if (action.equals("isInstalled")) {
+            isInstalled(callbackContext);
         } else {
             return false;
         }
@@ -214,6 +217,17 @@ public class WeChat extends CordovaPlugin {
             return;
         }
 
+        currentCallbackContext = callbackContext;
+    }
+
+    private void isInstalled(CallbackContext callbackContext) {
+        try {
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, api.isWXAppInstalled()));
+        } catch (Exception e) {
+            callbackContext.error(e.getMessage());
+            return;
+        } 
+        
         currentCallbackContext = callbackContext;
     }
 }

@@ -27,5 +27,6 @@ enum CDVWeChatShareType {
 @property (nonatomic, strong) NSString *wechatAppId;
 
 - (void)share:(CDVInvokedUrlCommand *)command;
+- (void)isInstalled:(CDVInvokedUrlCommand *)command;
 
 @end

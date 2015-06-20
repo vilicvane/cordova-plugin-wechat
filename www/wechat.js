@@ -62,3 +62,23 @@ exports.ShareType = {
     video: 6,
     webpage: 7
 };
+
+exports.isInstalled = function (onfulfill, onreject) {
+    var ThenFail = window.ThenFail;
+    var promise;
+
+    if (ThenFail && !onfulfill && !onreject) {
+        promise = new ThenFail();
+    }
+
+    cordova
+        .exec(function (isInstalled) {
+            if (promise) {promise.resolve(isInstalled);}
+            if (onfulfill) {onfulfill(isInstalled);}
+        }, function (err) {
+            if (promise) {promise.reject(err);}
+            if (onreject) {onreject(err);}
+        }, 'WeChat', 'isInstalled', []);
+
+    return promise;
+};

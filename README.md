@@ -57,6 +57,8 @@ src/ios/libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, �
 
 ```javascript
 // 在 device ready 后.
+
+// 分享API
 WeChat
     .share('文本', WeChat.Scene.session, function () {
         console.log('分享成功~');
@@ -74,6 +76,14 @@ WeChat
         console.log('分享成功~');
     }, function (reason) {
         // 分享失败
+        console.log(reason);
+    });
+
+// 检查微信安装情况
+WeChat
+    .isInstalled(function(isInstalled) {
+        console.log('WeChat installed='+isInstalled);
+    }, function(reason) {
         console.log(reason);
     });
 ```
