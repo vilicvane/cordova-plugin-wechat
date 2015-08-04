@@ -1,0 +1,34 @@
+{
+  "name": "vilic-cordova-plugin-wechat",
+  "version": "0.3.1",
+  "description": "Cordova WeChat Plugin",
+  "cordova": {
+    "id": "vilic-cordova-plugin-wechat",
+    "platforms": [
+      "ios",
+      "wp8",
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vilic/cordova-plugin-wechat.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova",
+    "wechat",
+    "weixin",
+    "微信",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-wp8",
+    "cordova-android"
+  ],
+  "author": "VILIC VANE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vilic/cordova-plugin-wechat/issues"
+  },
+  "homepage": "https://github.com/vilic/cordova-plugin-wechat#readme"
+}

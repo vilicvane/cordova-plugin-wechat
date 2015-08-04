@@ -3,13 +3,13 @@
 <plugin
   xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
-  id="com.wordsbaking.cordova.wechat"
+  id="vilic-cordova-plugin-wechat"
   version="0.3.1">
   <name>WeChat</name>
   <description>Cordova WeChat Plugin</description>
   <author>VILIC VANE</author>
   <license>MIT</license>
-  <keywords>cordova,wechat,weixin,微信</keywords>
+  <keywords>ecosystem:cordova,cordova,wechat,weixin,微信</keywords>
   <repo>https://github.com/vilic/cordova-plugin-wechat.git</repo>
   <issue>https://github.com/vilic/cordova-plugin-wechat/issues</issue>
 

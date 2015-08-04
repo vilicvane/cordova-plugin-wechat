@@ -69,6 +69,7 @@ WeChat
 // 或者 (更多选项见后).
 WeChat
     .share({
+        type: WeChat.ShareType.webpage,
         title: '链接',
         description: '链接描述',
         url: 'https://wordsbaking.com/'
