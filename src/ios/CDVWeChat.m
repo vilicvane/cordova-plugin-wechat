@@ -228,7 +228,7 @@ const int SCENE_TIMELINE = 2;
     }
 }
 
-- (void)isInstalled:(CDVInvokedUrlCommand *)command {
+- (void)isInstalled:(CDVInvokedUrlCommand*)command {
     CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[WXApi isWXAppInstalled]];
     
     [self.commandDelegate sendPluginResult:commandResult callbackId:command.callbackId];
