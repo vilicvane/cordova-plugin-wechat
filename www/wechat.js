@@ -9,13 +9,6 @@
 */
 
 exports.share = function (message, scene, onfulfilled, onrejected) {
-    var ThenFail = window.ThenFail;
-    var promise;
-
-    if (ThenFail && !onfulfilled && !onrejected) {
-        promise = new ThenFail();
-    }
-
     var text = null;
 
     if (typeof message == 'string') {
@@ -25,17 +18,9 @@ exports.share = function (message, scene, onfulfilled, onrejected) {
 
     cordova
         .exec(function () {
-            if (promise) {
-                promise.resolve();
-            } else if (onfulfilled) {
-                onfulfilled();
-            }
+            onfulfilled();
         }, function (err) {
-            if (promise) {
-                promise.reject(err);
-            } else if (onrejected) {
-                onrejected(err);
-            }
+            onrejected(err);
         }, 'WeChat', 'share', [
             {
                 message: message,
@@ -43,8 +28,6 @@ exports.share = function (message, scene, onfulfilled, onrejected) {
                 scene: scene
             }
         ]);
-
-    return promise;
 };
 
 exports.Scene = {
@@ -64,27 +47,10 @@ exports.ShareType = {
 };
 
 exports.isInstalled = function (onfulfilled, onrejected) {
-    var ThenFail = window.ThenFail;
-    var promise;
-
-    if (ThenFail && !onfulfilled && !onrejected) {
-        promise = new ThenFail();
-    }
-
     cordova
         .exec(function (isInstalled) {
-            if (promise) {
-                promise.resolve(isInstalled);
-            } else if (onfulfilled) {
-                onfulfilled(isInstalled);
-            }
+            onfulfilled(isInstalled);
         }, function (err) {
-            if (promise) {
-                promise.reject(err);
-            } else if (onrejected) {
-                onrejected(err);
-            }
+            onrejected(err);
         }, 'WeChat', 'isInstalled', []);
-
-    return promise;
 };
