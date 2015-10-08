@@ -1,9 +1,9 @@
 {
-  "name": "vilic-cordova-plugin-wechat",
+  "name": "cordova-plugin-tx-wechat",
   "version": "0.3.1",
   "description": "Cordova WeChat Plugin",
   "cordova": {
-    "id": "vilic-cordova-plugin-wechat",
+    "id": "cordova-plugin-tx-wechat",
     "platforms": [
       "ios",
       "wp8",
@@ -20,7 +20,6 @@
     "wechat",
     "weixin",
     "微信",
-    "ecosystem:cordova",
     "cordova-ios",
     "cordova-wp8",
     "cordova-android"

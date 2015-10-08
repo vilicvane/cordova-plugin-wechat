@@ -13,7 +13,7 @@ Inspired by https://github.com/xu-li/cordova-plugin-wechat
 一定不要忘记加上后面的 `--variable APP_ID=********`.
 
 ```sh
-cordova plugin add com.wordsbaking.cordova.wechat --variable APP_ID=[你的APPID]
+cordova plugin add cordova-plugin-tx-wechat --variable APP_ID=[你的APPID]
 ```
 
 另外貌似 Cordova 的变量信息是按平台保存的, 如果安装插件时尚未添加某个平台, 即便之前加上了变量,
@@ -22,7 +22,7 @@ cordova plugin add com.wordsbaking.cordova.wechat --variable APP_ID=[你的APPID
 如果是 Visual Studio Tools for Apache Cordova, 可以这样配置 App ID:
 
 ```xml
-<vs:plugin name="com.wordsbaking.cordova.wechat" version="0.3.0">
+<vs:plugin name="cordova-plugin-tx-wechat" version="0.3.1">
     <param name="APP_ID" value="[你的APPID]" />
 </vs:plugin>
 ```
@@ -58,7 +58,7 @@ src/ios/libWeChatSDK.a 这个文件有两个版本, 一个是 iPhone Only 的, �
 ```javascript
 // 在 device ready 后.
 
-// 分享API
+// 分享 API
 WeChat
     .share('文本', WeChat.Scene.session, function () {
         console.log('分享成功~');
@@ -81,9 +81,10 @@ WeChat
     });
 
 // 检查微信安装情况
+// WP 始终返回 true
 WeChat
-    .isInstalled(function(isInstalled) {
-        console.log('WeChat installed='+isInstalled);
+    .isInstalled(function(installed) {
+        console.log('WeChat installed='+installed);
     }, function(reason) {
         console.log(reason);
     });
@@ -133,9 +134,5 @@ declare module WeChat {
     // 分享.
     function share(text: string, scene: Scene, onfulfilled: () => void, onrejected: (reason) => void): void;
     function share(options: IMessageOptions, scene: Scene, onfulfilled: () => void, onrejected: (reason) => void): void;
-    
-    // 下面两个是我自己用的哈哈哈, 因为需要用到我的 ThenFail (https://github.com/vilic/thenfail).
-    function share(text: string, scene: Scene): ThenFail<void>;
-    function share(options: IMessageOptions, scene: Scene): ThenFail<void>;
 }
 ```

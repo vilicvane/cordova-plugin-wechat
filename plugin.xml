@@ -3,7 +3,7 @@
 <plugin
   xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
-  id="vilic-cordova-plugin-wechat"
+  id="cordova-plugin-tx-wechat"
   version="0.3.1">
   <name>WeChat</name>
   <description>Cordova WeChat Plugin</description>

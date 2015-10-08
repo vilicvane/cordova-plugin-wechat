@@ -14,7 +14,7 @@ module.exports = function (context) {
         appXamlCsCode = appXamlCsCode
             .replace(/^((?:(?![\r\n])\s)*)RootFrame\s*=\s*new\s+PhoneApplicationFrame\(\);/m, function (m, spaces) {
                 return m + '\r\n\r\n' +
-                    spaces + '// Added by com.wordsbaking.cordova.wechat plugin.\r\n' +
+                    spaces + '// Added by cordova-plugin-tx-wechat.\r\n' +
                     spaces + 'RootFrame.UriMapper = new WeChatAssociationUriMapper(RootFrame.UriMapper);\r\n';
             });
     } else {
