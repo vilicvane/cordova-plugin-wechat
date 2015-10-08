@@ -214,11 +214,14 @@ namespace Cordova.Extension.Commands {
                 api.SendReq(request);
             } catch (WXException e) {
                 dispatchResult(PluginResult.Status.ERROR, e.Message);
-                return;
             }
         }
 
-        public void dispatchResult(PluginResult.Status status, string message) {
+        public void isInstalled(string argsJSON) {
+            dispatchResult(PluginResult.Status.OK, true);
+        }
+
+        public void dispatchResult(PluginResult.Status status, object message) {
             DispatchCommandResult(new PluginResult(status, message));
         }
     }
