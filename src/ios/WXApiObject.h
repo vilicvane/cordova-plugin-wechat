@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 /*! @brief 错误码
  *
@@ -127,7 +128,6 @@ enum WXMPWebviewType {
 @end
 
 
-
 #pragma mark - SendAuthReq
 /*! @brief 第三方程序向微信终端请求认证的消息结构
  *
@@ -206,7 +206,6 @@ enum WXMPWebviewType {
 @end
 
 
-
 #pragma mark - GetMessageFromWXReq
 /*! @brief 微信终端向第三方程序请求提供内容的消息结构体。
  *
@@ -279,6 +278,71 @@ enum WXMPWebviewType {
 @property (nonatomic, retain) NSString* country;
 @end
 
+#pragma mark - OpenTempSessionReq
+/* ! @brief 第三方通知微信，打开临时会话
+ *
+ * 第三方通知微信，打开临时会话
+ */
+@interface OpenTempSessionReq : BaseReq
+/** 需要打开的用户名
+ * @attention 长度不能超过512字节
+ */
+@property (nonatomic, retain) NSString* username;
+/** 开发者自定义参数，拉起临时会话后会发给开发者后台，可以用于识别场景
+ * @attention 长度不能超过32位
+ */
+@property (nonatomic, retain) NSString*  sessionFrom;
+@end
+
+#pragma mark - OpenTempSessionResp
+/*! @brief 微信终端向第三方程序返回的OpenTempSessionReq处理结果。
+ *
+ * 第三方程序向微信终端发送OpenTempSessionReq后，微信发送回来的处理结果，该结果用OpenTempSessionResp表示。
+ */
+@interface OpenTempSessionResp : BaseResp
+
+@end
+
+#pragma mark - OpenWebviewReq
+/* ! @brief 第三方通知微信启动内部浏览器，打开指定网页
+ *
+ *  第三方通知微信启动内部浏览器，打开指定Url对应的网页
+ */
+@interface OpenWebviewReq : BaseReq
+/** 需要打开的网页对应的Url
+ * @attention 长度不能超过1024
+ */
+@property(nonatomic,retain)NSString* url;
+
+@end
+
+#pragma mark - OpenWebviewResp
+/*! @brief 微信终端向第三方程序返回的OpenWebviewReq处理结果
+ *
+ * 第三方程序向微信终端发送OpenWebviewReq后，微信发送回来的处理结果，该结果用OpenWebviewResp表示
+ */
+@interface OpenWebviewResp : BaseResp
+
+@end
+
+#pragma mark - OpenRankListReq
+/* ! @brief 第三方通知微信，打开硬件排行榜
+ *
+ * 第三方通知微信，打开硬件排行榜
+ */
+@interface OpenRankListReq : BaseReq
+
+@end
+
+#pragma mark - OpenRanklistResp
+/*! @brief 微信终端向第三方程序返回的OpenRankListReq处理结果。
+ *
+ * 第三方程序向微信终端发送OpenRankListReq后，微信发送回来的处理结果，该结果用OpenRankListResp表示。
+ */
+@interface OpenRankListResp : BaseResp
+
+@end
+
 #pragma mark - JumpToBizProfileReq
 /* ! @brief 第三方通知微信，打开指定微信号profile页面
  *
@@ -331,6 +395,7 @@ enum WXMPWebviewType {
 @property (nonatomic,retain) NSString* cardId;
 /** ext信息
  * @attention 长度不能超过2024字节
+ * 具体见http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD.954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94.9F.E6.88.90.E7.AE.97.E6.B3.95 卡券扩展字段cardExt说明
  */
 @property (nonatomic,retain) NSString* extMsg;
 /**
@@ -364,7 +429,6 @@ enum WXMPWebviewType {
  */
 @property (nonatomic,retain) NSArray* cardAry;
 @end
-
 
 #pragma mark - WXMediaMessage
 
