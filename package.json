@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-tx-wechat",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Cordova WeChat Plugin",
   "cordova": {
     "id": "cordova-plugin-tx-wechat",
