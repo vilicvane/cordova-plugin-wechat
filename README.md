@@ -1,5 +1,7 @@
 # Cordova/PhoneGap 微信分享插件
 
+此插件暂停维护, 如果不需要 WP 平台支持, 请使用 https://github.com/xu-li/cordova-plugin-wechat.
+
 Inspired by https://github.com/xu-li/cordova-plugin-wechat
 
 支持 iOS, WP, Android, 都有回调. 分享内容只支持文本, 图片, 和链接.
