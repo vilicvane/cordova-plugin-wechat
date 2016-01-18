@@ -23,8 +23,12 @@ import com.wordsbaking.cordova.wechat.WeChat;
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        WeChat.api.handleIntent(getIntent(), this);
+        try {
+            super.onCreate(savedInstanceState);
+            WeChat.api.handleIntent(getIntent(), this);
+        } catch (Exception e) {
+            finish();
+        }
     }
 
     @Override
